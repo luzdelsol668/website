@@ -83,16 +83,13 @@ As soon as you created the database you will be redirected to the service's page
 Before settings up your environment variables you have to configure your app in a way that supports
 
 ```bash
-pip install django-environ
+pip install python-decouple
 ```
 
 now inside `settings.py` import environ and initialise it:
 
 ```python
-import environ
-# Initialise environment variables
-env = environ.Env()
-environ.Env.read_env()
+from decouple import config as env_variable
 ```
 
 Your Django application can now read environment variables. Replace all references to your environment variables in `settings.py`:
@@ -101,9 +98,9 @@ Your Django application can now read environment variables. Replace all referenc
 DATABASES = {
     ‘default’: {
     ‘ENGINE’: ‘django.db.backends.postgresql_psycopg2’,
-    ‘NAME’: env(‘DATABASE_NAME’),
-    ‘USER’: env(‘DATABASE_USER’),
-    ‘PASSWORD’: env(‘DATABASE_PASS’),
+    ‘NAME’: env_variable(‘DATABASE_NAME’),
+    ‘USER’: env_variable(‘DATABASE_USER’),
+    ‘PASSWORD’: env_variable(‘DATABASE_PASS’),
     }
 }
 ```
@@ -111,7 +108,7 @@ DATABASES = {
 And
 
 ```python
-SECRET_KEY = env(‘SECRET_KEY’)
+SECRET_KEY = env_variable(‘SECRET_KEY’)
 ```
 
 Configure the environment variables required for your Django application using Easypanel's "Environment" tab:
